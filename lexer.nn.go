@@ -377,6 +377,17 @@ var dfas = []dfa{
 		},
 	}, []int{ /* Start-of-input transitions */ -1, -1}, []int{ /* End-of-input transitions */ -1, -1}, nil},
 
+	// [0-9]*
+	{[]bool{true}, []func(rune) int{ // Transitions
+		func(r rune) int {
+			switch {
+			case 48 <= r && r <= 57:
+				return 0
+			}
+			return -1
+		},
+	}, []int{ /* Start-of-input transitions */ -1}, []int{ /* End-of-input transitions */ -1}, nil},
+
 	// [A-Za-z][A-Za-z0-9_:]*
 	{[]bool{false, true, true}, []func(rune) int{ // Transitions
 		func(r rune) int {
@@ -532,6 +543,11 @@ OUTER0:
 				return END_ARR
 			}
 		case 10:
+			{
+				lval.s = yylex.Text()
+				return INTEGER
+			}
+		case 11:
 			{
 				lval.s = yylex.Text()
 				return IDENT

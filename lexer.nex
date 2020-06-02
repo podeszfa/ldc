@@ -8,6 +8,7 @@
 /\./ { return DOT }
 /\[/ { return BEGIN_ARR }
 /\]/ { return END_ARR }
+/[0-9]*/                 { lval.s = yylex.Text(); return INTEGER }
 /[A-Za-z][A-Za-z0-9_:]*/ { lval.s = yylex.Text(); return IDENT }
 //
 
