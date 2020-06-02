@@ -1,0 +1,19 @@
+/[ \t]/  { /* Skip blanks and tabs. */ }
+/,/  { return COMA }
+/;/  { return SEMI }
+/\?/ { return QUESTION }
+/\(/ { return BEGIN_EXP  }
+/\)/ { return END_EXP }
+/\./ { return DOT }
+/\[/ { return BEGIN_ARR }
+/\]/ { return END_ARR }
+/[A-Za-z][A-Za-z0-9_:]*/ { lval.s = yylex.Text(); return IDENT }
+//
+
+package main
+
+import "fmt"
+
+func (yylex Lexer) Error(e string) {
+	fmt.Printf(":%v:%v: error: %q undeclared\n", yylex.Line()+1, yylex.Column(), yylex.Text())
+}
