@@ -16,13 +16,14 @@ type yySymType struct {
 
 const COMA = 57346
 const SEMI = 57347
-const QUESTION = 57348
-const BEGIN_EXP = 57349
-const END_EXP = 57350
-const DOT = 57351
-const BEGIN_ARR = 57352
-const END_ARR = 57353
-const IDENT = 57354
+const NEW_LINE = 57348
+const QUESTION = 57349
+const BEGIN_EXP = 57350
+const END_EXP = 57351
+const DOT = 57352
+const BEGIN_ARR = 57353
+const END_ARR = 57354
+const IDENT = 57355
 
 var yyToknames = [...]string{
 	"$end",
@@ -30,6 +31,7 @@ var yyToknames = [...]string{
 	"$unk",
 	"COMA",
 	"SEMI",
+	"NEW_LINE",
 	"QUESTION",
 	"BEGIN_EXP",
 	"END_EXP",
@@ -44,7 +46,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line parser.y:21
+//line parser.y:26
 
 var ()
 
@@ -53,39 +55,42 @@ var yyExca = [...]int{
 	-1, 1,
 	1, -1,
 	-2, 0,
+	-1, 2,
+	6, 2,
+	-2, 1,
 }
 
 const yyPrivate = 57344
 
-const yyLast = 3
+const yyLast = 7
 
 var yyAct = [...]int{
 
-	3, 2, 1,
+	7, 5, 3, 4, 2, 6, 1,
 }
 var yyPact = [...]int{
 
-	-5, -1000, -1000, -1000,
+	-4, -1000, -4, -1000, -6, -1000, -1000, -1000,
 }
 var yyPgo = [...]int{
 
-	0, 2, 1,
+	0, 6, 4, 3, 2,
 }
 var yyR1 = [...]int{
 
-	0, 1, 2, 2,
+	0, 1, 3, 3, 2, 2, 4,
 }
 var yyR2 = [...]int{
 
-	0, 1, 0, 1,
+	0, 1, 0, 1, 1, 2, 2,
 }
 var yyChk = [...]int{
 
-	-1000, -1, -2, 5,
+	-1000, -1, -2, -4, -3, 5, -4, 6,
 }
 var yyDef = [...]int{
 
-	2, -2, 1, 3,
+	2, -2, -2, 4, 0, 3, 5, 6,
 }
 var yyTok1 = [...]int{
 
@@ -94,7 +99,7 @@ var yyTok1 = [...]int{
 var yyTok2 = [...]int{
 
 	2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-	12,
+	12, 13,
 }
 var yyTok3 = [...]int{
 	0,

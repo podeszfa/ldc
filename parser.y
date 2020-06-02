@@ -8,15 +8,20 @@ import (
   s    string
 }
 
-%token COMA SEMI QUESTION BEGIN_EXP END_EXP DOT BEGIN_ARR END_ARR IDENT
+%token COMA SEMI NEW_LINE QUESTION BEGIN_EXP END_EXP DOT BEGIN_ARR END_ARR IDENT
 
 %start main
 
 %%
-main :  semi_or_not
+main : rungs
 
 semi_or_not :
             | SEMI
+
+rungs : rung
+      | rungs rung
+
+rung : semi_or_not NEW_LINE
 
 %%
 

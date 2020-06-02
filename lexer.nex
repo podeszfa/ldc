@@ -1,6 +1,7 @@
-/[ \t]/  { /* Skip blanks and tabs. */ }
+/[ \r\t]/  { /* Skip blanks and tabs. */ }
 /,/  { return COMA }
 /;/  { return SEMI }
+/\n/ { return NEW_LINE }
 /\?/ { return QUESTION }
 /\(/ { return BEGIN_EXP  }
 /\)/ { return END_EXP }

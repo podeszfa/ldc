@@ -189,11 +189,13 @@ type dfa struct {
 }
 
 var dfas = []dfa{
-	// [ \t]
+	// [ \r\t]
 	{[]bool{false, true}, []func(rune) int{ // Transitions
 		func(r rune) int {
 			switch r {
 			case 9:
+				return 1
+			case 13:
 				return 1
 			case 32:
 				return 1
@@ -203,6 +205,8 @@ var dfas = []dfa{
 		func(r rune) int {
 			switch r {
 			case 9:
+				return -1
+			case 13:
 				return -1
 			case 32:
 				return -1
@@ -241,6 +245,24 @@ var dfas = []dfa{
 		func(r rune) int {
 			switch r {
 			case 59:
+				return -1
+			}
+			return -1
+		},
+	}, []int{ /* Start-of-input transitions */ -1, -1}, []int{ /* End-of-input transitions */ -1, -1}, nil},
+
+	// \n
+	{[]bool{false, true}, []func(rune) int{ // Transitions
+		func(r rune) int {
+			switch r {
+			case 10:
+				return 1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 10:
 				return -1
 			}
 			return -1
@@ -483,29 +505,33 @@ OUTER0:
 			}
 		case 3:
 			{
-				return QUESTION
+				return NEW_LINE
 			}
 		case 4:
 			{
-				return BEGIN_EXP
+				return QUESTION
 			}
 		case 5:
 			{
-				return END_EXP
+				return BEGIN_EXP
 			}
 		case 6:
 			{
-				return DOT
+				return END_EXP
 			}
 		case 7:
 			{
-				return BEGIN_ARR
+				return DOT
 			}
 		case 8:
 			{
-				return END_ARR
+				return BEGIN_ARR
 			}
 		case 9:
+			{
+				return END_ARR
+			}
+		case 10:
 			{
 				lval.s = yylex.Text()
 				return IDENT
