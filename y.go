@@ -534,7 +534,79 @@ yydefault:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line parser.y:52
 		{
-			yyVAL.s = "nullptr"
+			yyVAL.s = "null"
+		}
+	case 20:
+		yyDollar = yyS[yypt-4 : yypt+1]
+//line parser.y:53
+		{
+			yyVAL.s = yyDollar[1].s + "(" + yyDollar[3].s + ")"
+		}
+	case 21:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:54
+		{
+			yyVAL.s = yyDollar[1].s + "." + yyDollar[3].s
+		}
+	case 22:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:55
+		{
+			yyVAL.s = "(" + yyDollar[2].s + ")"
+		}
+	case 23:
+		yyDollar = yyS[yypt-4 : yypt+1]
+//line parser.y:56
+		{
+			yyVAL.s = yyDollar[1].s + "[" + yyDollar[3].s + "]"
+		}
+	case 24:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:57
+		{
+			yyVAL.s = yyDollar[1].s + " " + yyDollar[2].s + " " + yyDollar[3].s
+		}
+	case 25:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:58
+		{
+			yyVAL.s = yyDollar[1].s + " " + yyDollar[2].s + " " + yyDollar[3].s
+		}
+	case 26:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:59
+		{
+			yyVAL.s = yyDollar[1].s + " * " + yyDollar[3].s
+		}
+	case 27:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:60
+		{
+			yyVAL.s = yyDollar[1].s + " / " + yyDollar[3].s
+		}
+	case 28:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:61
+		{
+			yyVAL.s = yyDollar[1].s + " + " + yyDollar[3].s
+		}
+	case 29:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:62
+		{
+			yyVAL.s = yyDollar[1].s + " - " + yyDollar[3].s
+		}
+	case 30:
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line parser.y:63
+		{
+			yyVAL.s = "-" + yyDollar[2].s
+		}
+	case 32:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:66
+		{
+			yyVAL.s = yyDollar[1].s + "][" + yyDollar[3].s
 		}
 	}
 	goto yystack /* stack new state and value */

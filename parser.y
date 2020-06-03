@@ -49,21 +49,21 @@ parameters :
 
 parameter : IDENT
           | INTEGER
-          | QUESTION                             { $$.s = "nullptr" }
-          | IDENT BEGIN_EXP parameters END_EXP
-          | parameter DOT parameter
-          | BEGIN_EXP parameter END_EXP
-          | parameter BEGIN_ARR array_is END_ARR
-          | parameter OP_COMP parameter
-          | parameter OP_EQ parameter
-          | parameter OP_MUL parameter
-          | parameter OP_DIV parameter
-          | parameter OP_ADD parameter
-          | parameter OP_SUB parameter
-          | OP_SUB parameter %prec UNARY_SUB
+          | QUESTION                             { $$.s = "null" }
+          | IDENT BEGIN_EXP parameters END_EXP   { $$.s = $1.s + "(" + $3.s + ")" }
+          | parameter DOT parameter              { $$.s = $1.s + "." + $3.s}
+          | BEGIN_EXP parameter END_EXP          { $$.s = "(" + $2.s + ")" }
+          | parameter BEGIN_ARR array_is END_ARR { $$.s = $1.s + "[" + $3.s + "]" }
+          | parameter OP_COMP parameter          { $$.s = $1.s + " " + $2.s + " " + $3.s}
+          | parameter OP_EQ parameter            { $$.s = $1.s + " " + $2.s + " " + $3.s}
+          | parameter OP_MUL parameter           { $$.s = $1.s + " * " + $3.s}
+          | parameter OP_DIV parameter           { $$.s = $1.s + " / " + $3.s}
+          | parameter OP_ADD parameter           { $$.s = $1.s + " + " + $3.s}
+          | parameter OP_SUB parameter           { $$.s = $1.s + " - " + $3.s}
+          | OP_SUB parameter %prec UNARY_SUB     { $$.s = "-" + $2.s }
 
 array_is : parameter
-         | array_is COMA parameter
+         | array_is COMA parameter { $$.s = $1.s + "][" + $3.s }
 
 %%
 
