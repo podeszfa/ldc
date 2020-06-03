@@ -6,6 +6,15 @@ import (
 	"strings"
 )
 
+/*
+XIC -] [-   Examine if Closed
+XIO -]/[-   Examine if Open
+OTE -( )-   Output Energize
+OTL -(L)-   Output Latch
+OTU -(U)-   Output Unlatch
+OSR -[OSR]- One-Shot Rising
+*/
+
 func main() {
 	var (
 		b   []byte

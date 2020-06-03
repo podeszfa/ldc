@@ -6,9 +6,11 @@ package main
 import __yyfmt__ "fmt"
 
 //line parser.y:2
-import ()
+import (
+	"fmt"
+)
 
-//line parser.y:7
+//line parser.y:8
 type yySymType struct {
 	yys int
 	s   string
@@ -62,7 +64,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line parser.y:67
+//line parser.y:68
 
 var ()
 
@@ -492,6 +494,48 @@ yydefault:
 	// dummy call; replaced with literal code
 	switch yynt {
 
+	case 2:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line parser.y:29
+		{
+			fmt.Println(yyDollar[1].s)
+		}
+	case 3:
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line parser.y:30
+		{
+			fmt.Println(yyDollar[2].s)
+		}
+	case 4:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:32
+		{
+			yyVAL.s = yyDollar[1].s + ";"
+		}
+	case 8:
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line parser.y:37
+		{
+			yyVAL.s = yyDollar[1].s + ";\n" + yyDollar[2].s
+		}
+	case 9:
+		yyDollar = yyS[yypt-4 : yypt+1]
+//line parser.y:39
+		{
+			yyVAL.s = yyDollar[1].s + "(" + yyDollar[3].s + ")"
+		}
+	case 16:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:48
+		{
+			yyVAL.s = yyDollar[1].s + ", " + yyDollar[3].s
+		}
+	case 19:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line parser.y:52
+		{
+			yyVAL.s = "nullptr"
+		}
 	}
 	goto yystack /* stack new state and value */
 }

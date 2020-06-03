@@ -1,6 +1,7 @@
 %{
 package main
 import (
+  "fmt"
 )
 %}
 
@@ -25,17 +26,17 @@ import (
 %%
 main : rungs
 
-rungs : rung
-      | rungs rung
+rungs : rung       { fmt.Println($1.s) }
+      | rungs rung { fmt.Println($2.s) }
 
-rung : statements SEMI NEW_LINE
+rung : statements SEMI NEW_LINE { $$.s = $1.s + ";" }
      | SEMI NEW_LINE
      | NEW_LINE
 
 statements : statement
-           | statements statement
+           | statements statement { $$.s = $1.s + ";\n" + $2.s }
 
-statement : IDENT BEGIN_EXP parameters END_EXP
+statement : IDENT BEGIN_EXP parameters END_EXP { $$.s = $1.s + "(" + $3.s + ")" }
           | BEGIN_ARR stmt_coma END_ARR
           | BEGIN_ARR COMA stmt_coma END_ARR
 
@@ -44,11 +45,11 @@ stmt_coma : statements
 
 parameters :
            | parameter
-           | parameters COMA parameter
+           | parameters COMA parameter { $$.s = $1.s + ", " + $3.s }
 
 parameter : IDENT
           | INTEGER
-          | QUESTION
+          | QUESTION                             { $$.s = "nullptr" }
           | IDENT BEGIN_EXP parameters END_EXP
           | parameter DOT parameter
           | BEGIN_EXP parameter END_EXP
