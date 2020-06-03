@@ -29,6 +29,7 @@ rungs : rung
       | rungs rung
 
 rung : statements SEMI NEW_LINE
+     | SEMI NEW_LINE
      | NEW_LINE
 
 statements : statement
@@ -36,6 +37,7 @@ statements : statement
 
 statement : IDENT BEGIN_EXP parameters END_EXP
           | BEGIN_ARR stmt_coma END_ARR
+          | BEGIN_ARR COMA stmt_coma END_ARR
 
 stmt_coma : statements
           | stmt_coma COMA statements
@@ -50,8 +52,7 @@ parameter : IDENT
           | IDENT BEGIN_EXP parameters END_EXP
           | parameter DOT parameter
           | BEGIN_EXP parameter END_EXP
-          | parameter BEGIN_ARR INTEGER END_ARR
-          | parameter BEGIN_ARR IDENT END_ARR
+          | parameter BEGIN_ARR array_is END_ARR
           | parameter OP_COMP parameter
           | parameter OP_EQ parameter
           | parameter OP_MUL parameter
@@ -59,6 +60,9 @@ parameter : IDENT
           | parameter OP_ADD parameter
           | parameter OP_SUB parameter
           | OP_SUB parameter %prec UNARY_SUB
+
+array_is : parameter
+         | array_is COMA parameter
 
 %%
 
