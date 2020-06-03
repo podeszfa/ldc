@@ -215,6 +215,78 @@ var dfas = []dfa{
 		},
 	}, []int{ /* Start-of-input transitions */ -1, -1}, []int{ /* End-of-input transitions */ -1, -1}, nil},
 
+	// \*
+	{[]bool{false, true}, []func(rune) int{ // Transitions
+		func(r rune) int {
+			switch r {
+			case 42:
+				return 1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 42:
+				return -1
+			}
+			return -1
+		},
+	}, []int{ /* Start-of-input transitions */ -1, -1}, []int{ /* End-of-input transitions */ -1, -1}, nil},
+
+	// \/
+	{[]bool{false, true}, []func(rune) int{ // Transitions
+		func(r rune) int {
+			switch r {
+			case 47:
+				return 1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 47:
+				return -1
+			}
+			return -1
+		},
+	}, []int{ /* Start-of-input transitions */ -1, -1}, []int{ /* End-of-input transitions */ -1, -1}, nil},
+
+	// \+
+	{[]bool{false, true}, []func(rune) int{ // Transitions
+		func(r rune) int {
+			switch r {
+			case 43:
+				return 1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 43:
+				return -1
+			}
+			return -1
+		},
+	}, []int{ /* Start-of-input transitions */ -1, -1}, []int{ /* End-of-input transitions */ -1, -1}, nil},
+
+	// -
+	{[]bool{false, true}, []func(rune) int{ // Transitions
+		func(r rune) int {
+			switch r {
+			case 45:
+				return 1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 45:
+				return -1
+			}
+			return -1
+		},
+	}, []int{ /* Start-of-input transitions */ -1, -1}, []int{ /* End-of-input transitions */ -1, -1}, nil},
+
 	// ,
 	{[]bool{false, true}, []func(rune) int{ // Transitions
 		func(r rune) int {
@@ -377,6 +449,114 @@ var dfas = []dfa{
 		},
 	}, []int{ /* Start-of-input transitions */ -1, -1}, []int{ /* End-of-input transitions */ -1, -1}, nil},
 
+	// =
+	{[]bool{false, true}, []func(rune) int{ // Transitions
+		func(r rune) int {
+			switch r {
+			case 61:
+				return 1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 61:
+				return -1
+			}
+			return -1
+		},
+	}, []int{ /* Start-of-input transitions */ -1, -1}, []int{ /* End-of-input transitions */ -1, -1}, nil},
+
+	// <>
+	{[]bool{false, false, true}, []func(rune) int{ // Transitions
+		func(r rune) int {
+			switch r {
+			case 60:
+				return 1
+			case 62:
+				return -1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 60:
+				return -1
+			case 62:
+				return 2
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 60:
+				return -1
+			case 62:
+				return -1
+			}
+			return -1
+		},
+	}, []int{ /* Start-of-input transitions */ -1, -1, -1}, []int{ /* End-of-input transitions */ -1, -1, -1}, nil},
+
+	// >|<|>=|<=
+	{[]bool{false, true, true, true, true}, []func(rune) int{ // Transitions
+		func(r rune) int {
+			switch r {
+			case 60:
+				return 1
+			case 61:
+				return -1
+			case 62:
+				return 2
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 60:
+				return -1
+			case 61:
+				return 4
+			case 62:
+				return -1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 60:
+				return -1
+			case 61:
+				return 3
+			case 62:
+				return -1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 60:
+				return -1
+			case 61:
+				return -1
+			case 62:
+				return -1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 60:
+				return -1
+			case 61:
+				return -1
+			case 62:
+				return -1
+			}
+			return -1
+		},
+	}, []int{ /* Start-of-input transitions */ -1, -1, -1, -1, -1}, []int{ /* End-of-input transitions */ -1, -1, -1, -1, -1}, nil},
+
 	// [0-9]*
 	{[]bool{true}, []func(rune) int{ // Transitions
 		func(r rune) int {
@@ -508,46 +688,77 @@ OUTER0:
 			}
 		case 1:
 			{
-				return COMA
+				return OP_MUL
 			}
 		case 2:
 			{
-				return SEMI
+				return OP_DIV
 			}
 		case 3:
 			{
-				return NEW_LINE
+				return OP_ADD
 			}
 		case 4:
 			{
-				return QUESTION
+				return OP_SUB
 			}
 		case 5:
 			{
-				return BEGIN_EXP
+				return COMA
 			}
 		case 6:
 			{
-				return END_EXP
+				return SEMI
 			}
 		case 7:
 			{
-				return DOT
+				return NEW_LINE
 			}
 		case 8:
 			{
-				return BEGIN_ARR
+				return QUESTION
 			}
 		case 9:
 			{
-				return END_ARR
+				return BEGIN_EXP
 			}
 		case 10:
+			{
+				return END_EXP
+			}
+		case 11:
+			{
+				return DOT
+			}
+		case 12:
+			{
+				return BEGIN_ARR
+			}
+		case 13:
+			{
+				return END_ARR
+			}
+		case 14:
+			{
+				lval.s = "=="
+				return OP_EQ
+			}
+		case 15:
+			{
+				lval.s = "!="
+				return OP_EQ
+			}
+		case 16:
+			{
+				lval.s = yylex.Text()
+				return OP_COMP
+			}
+		case 17:
 			{
 				lval.s = yylex.Text()
 				return INTEGER
 			}
-		case 11:
+		case 18:
 			{
 				lval.s = yylex.Text()
 				return IDENT

@@ -1,13 +1,20 @@
 /[ \r\t]/  { /* Skip blanks and tabs. */ }
-/,/  { return COMA }
-/;/  { return SEMI }
-/\n/ { return NEW_LINE }
-/\?/ { return QUESTION }
-/\(/ { return BEGIN_EXP  }
-/\)/ { return END_EXP }
-/\./ { return DOT }
-/\[/ { return BEGIN_ARR }
-/\]/ { return END_ARR }
+/\*/   { return OP_MUL }
+/\//   { return OP_DIV }
+/\+/   { return OP_ADD }
+/-/    { return OP_SUB }
+/,/    { return COMA }
+/;/    { return SEMI }
+/\n/   { return NEW_LINE }
+/\?/   { return QUESTION }
+/\(/   { return BEGIN_EXP  }
+/\)/   { return END_EXP }
+/\./   { return DOT }
+/\[/   { return BEGIN_ARR }
+/\]/   { return END_ARR }
+/=/         { lval.s = "=="; return OP_EQ }
+/<>/        { lval.s = "!="; return OP_EQ }
+/>|<|>=|<=/ { lval.s = yylex.Text(); return OP_COMP }
 /[0-9]*/                 { lval.s = yylex.Text(); return INTEGER }
 /[A-Za-z][A-Za-z0-9_:]*/ { lval.s = yylex.Text(); return IDENT }
 //

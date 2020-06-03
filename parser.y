@@ -9,6 +9,16 @@ import (
 }
 
 %token COMA SEMI NEW_LINE QUESTION BEGIN_EXP END_EXP DOT BEGIN_ARR END_ARR IDENT INTEGER
+%token OP_MUL OP_DIV OP_ADD OP_SUB OP_EQ OP_COMP
+
+%left COMA
+%nonassoc OP_EQ
+%nonassoc OP_COMP
+%left OP_ADD OP_SUB
+%left OP_MUL OP_DIV
+%left DOT BEGIN_ARR
+%left UNARY_SUB
+%left BEGIN_EXP
 
 %start main
 
@@ -37,10 +47,18 @@ parameters :
 parameter : IDENT
           | INTEGER
           | QUESTION
+          | IDENT BEGIN_EXP parameters END_EXP
           | parameter DOT parameter
-          | parameter DOT INTEGER
+          | BEGIN_EXP parameter END_EXP
           | parameter BEGIN_ARR INTEGER END_ARR
           | parameter BEGIN_ARR IDENT END_ARR
+          | parameter OP_COMP parameter
+          | parameter OP_EQ parameter
+          | parameter OP_MUL parameter
+          | parameter OP_DIV parameter
+          | parameter OP_ADD parameter
+          | parameter OP_SUB parameter
+          | OP_SUB parameter %prec UNARY_SUB
 
 %%
 
