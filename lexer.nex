@@ -3,6 +3,7 @@
 /\//   { return OP_DIV }
 /\+/   { return OP_ADD }
 /-/    { return OP_SUB }
+/\*\*/ { return OP_EXP }
 /,/    { return COMA }
 /;/    { return SEMI }
 /\n/   { return NEW_LINE }
@@ -12,6 +13,11 @@
 /\./   { return DOT }
 /\[/   { return BEGIN_ARR }
 /\]/   { return END_ARR }
+/AND/  { return OP_AND }
+/OR/   { return OP_OR }
+/MOD/  { return OP_MOD }
+/NOT/  { return OP_NOT }
+/XOR/  { return OP_XOR }
 /=/         { lval.s = "=="; return OP_EQ }
 /<>/        { lval.s = "!="; return OP_EQ }
 />|<|>=|<=/ { lval.s = yylex.Text(); return OP_COMP }
