@@ -1,8 +1,6 @@
-package main
+package ldc
 
 import (
-	"io/ioutil"
-	"os"
 	"strings"
 )
 
@@ -15,20 +13,19 @@ OTU -(U)-   Output Unlatch
 OSR -[OSR]- One-Shot Rising
 */
 
-func main() {
-	var (
-		b   []byte
-		err error
-	)
-	if len(os.Args) == 2 {
-		b, err = ioutil.ReadFile(os.Args[1])
-	} else {
-		b, err = ioutil.ReadAll(os.Stdin)
-	}
+var prefix = `VAR
+  EN : BOOL;
+END_VAR
 
-	if err != nil {
-		panic(err)
-	}
+EN := TRUE;
+`
 
-	yyParse(NewLexer(strings.NewReader(string(b))))
+var suffix = `
+END_PROGRAM;
+`
+
+// Transpile .
+func Transpile(s, name string) string {
+	yyParse(NewLexer(strings.NewReader(s)))
+	return "PROGRAM " + name + "\n" + prefix + strings.Join(r, ";\n\n") + ";\n" + suffix
 }
