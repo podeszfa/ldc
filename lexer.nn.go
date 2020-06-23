@@ -2,7 +2,6 @@ package ldc
 
 import (
 	"fmt"
-	"os"
 )
 import (
 	"bufio"
@@ -1095,11 +1094,9 @@ OUTER0:
 
 	return 0
 }
-func (yylex Lexer) Error(e string) {
-	fmt.Printf("line %d column %d: %s, found %q\n", yylex.Line()+1, yylex.Column(), e, yylex.Text())
-}
 
-func (yylex Lexer) Err(e string) {
-	fmt.Printf("line %d column %d: %s\n", yylex.Line()+1, yylex.Column(), e)
-	os.Exit(1)
+var lexErr string
+
+func (yylex Lexer) Error(e string) {
+	lexErr = fmt.Sprintf("line %d column %d: %s, found %q\n", yylex.Line()+1, yylex.Column(), e, yylex.Text())
 }
