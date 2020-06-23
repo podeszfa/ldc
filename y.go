@@ -7,10 +7,16 @@ import __yyfmt__ "fmt"
 
 //line parser.y:2
 
-//line parser.y:5
+import (
+	"strconv"
+	"strings"
+)
+
+//line parser.y:10
 type yySymType struct {
 	yys int
 	s   string
+	c   int
 }
 
 const PR_FUNC = 57346
@@ -68,7 +74,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line parser.y:90
+//line parser.y:96
 
 var (
 	r []string
@@ -569,7 +575,7 @@ yydefault:
 
 	case 2:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser.y:32
+//line parser.y:38
 		{
 			if yyDollar[1].s != "" {
 				r = append(r, yyDollar[1].s)
@@ -577,7 +583,7 @@ yydefault:
 		}
 	case 3:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser.y:38
+//line parser.y:44
 		{
 			if yyDollar[2].s != "" {
 				r = append(r, yyDollar[2].s)
@@ -585,169 +591,195 @@ yydefault:
 		}
 	case 5:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser.y:45
+//line parser.y:51
 		{
 			yyVAL.s = ""
 		}
 	case 6:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser.y:46
+//line parser.y:52
 		{
 			yyVAL.s = ""
 		}
 	case 8:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser.y:49
+//line parser.y:55
 		{
 			yyVAL.s = yyDollar[1].s + ";\n" + yyDollar[2].s
 		}
 	case 9:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser.y:51
+//line parser.y:57
 		{
 			yyVAL.s = "EN := " + yyDollar[1].s + "(EN, " + yyDollar[3].s + ")"
 		}
+	case 10:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:58
+		{
+			yyVAL.s = brPrefix(yyDollar[2].c) + yyDollar[2].s + ";\n" + brSuffix(yyDollar[2].c)
+		}
+	case 11:
+		yyDollar = yyS[yypt-4 : yypt+1]
+//line parser.y:59
+		{
+			yyVAL.s = brPrefix(yyDollar[3].c) + yyDollar[3].s + ";\n" + brSuffix(yyDollar[3].c)
+		}
+	case 12:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line parser.y:61
+		{
+			yyVAL.s = strings.ReplaceAll(yyDollar[1].s, "EN", "EN1")
+			yyVAL.c = 1
+		}
+	case 13:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser.y:62
+		{
+			yyVAL.c = yyDollar[1].c + (yyDollar[3].c | 1)
+			yyVAL.s = yyDollar[1].s + ";\n" + strings.ReplaceAll(yyDollar[3].s, "EN", "EN"+strconv.Itoa(yyVAL.c))
+		}
 	case 16:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:60
+//line parser.y:66
 		{
 			yyVAL.s = yyDollar[1].s + ", " + yyDollar[3].s
 		}
 	case 19:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser.y:64
+//line parser.y:70
 		{
 			yyVAL.s = "null"
 		}
 	case 20:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser.y:65
+//line parser.y:71
 		{
 			yyVAL.s = yyDollar[1].s + "(" + yyDollar[3].s + ")"
 		}
 	case 21:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:66
+//line parser.y:72
 		{
 			yyVAL.s = yyDollar[1].s + "." + yyDollar[3].s
 		}
 	case 22:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:67
+//line parser.y:73
 		{
 			yyVAL.s = "(" + yyDollar[2].s + ")"
 		}
 	case 23:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser.y:68
+//line parser.y:74
 		{
 			yyVAL.s = yyDollar[1].s + "[" + yyDollar[3].s + "]"
 		}
 	case 24:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:69
+//line parser.y:75
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " AND " + yyDollar[3].s + ")"
 		}
 	case 25:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:70
+//line parser.y:76
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " OR " + yyDollar[3].s + ")"
 		}
 	case 26:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:71
+//line parser.y:77
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " XOR " + yyDollar[3].s + ")"
 		}
 	case 27:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:72
+//line parser.y:78
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " = " + yyDollar[3].s + ")"
 		}
 	case 28:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:73
+//line parser.y:79
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " <> " + yyDollar[3].s + ")"
 		}
 	case 29:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:74
+//line parser.y:80
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " > " + yyDollar[3].s + ")"
 		}
 	case 30:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:75
+//line parser.y:81
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " < " + yyDollar[3].s + ")"
 		}
 	case 31:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:76
+//line parser.y:82
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " >= " + yyDollar[3].s + ")"
 		}
 	case 32:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:77
+//line parser.y:83
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " <= " + yyDollar[3].s + ")"
 		}
 	case 33:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:78
+//line parser.y:84
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " * " + yyDollar[3].s + ")"
 		}
 	case 34:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:79
+//line parser.y:85
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " / " + yyDollar[3].s + ")"
 		}
 	case 35:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:80
+//line parser.y:86
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " MOD " + yyDollar[3].s + ")"
 		}
 	case 36:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:81
+//line parser.y:87
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " + " + yyDollar[3].s + ")"
 		}
 	case 37:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:82
+//line parser.y:88
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " - " + yyDollar[3].s + ")"
 		}
 	case 38:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:83
+//line parser.y:89
 		{
 			yyVAL.s = "(" + yyDollar[1].s + " ** " + yyDollar[3].s + ")"
 		}
 	case 39:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser.y:84
+//line parser.y:90
 		{
 			yyVAL.s = "NOT " + yyDollar[2].s
 		}
 	case 40:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser.y:85
+//line parser.y:91
 		{
 			yyVAL.s = "-" + yyDollar[2].s
 		}
 	case 42:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser.y:88
+//line parser.y:94
 		{
 			yyVAL.s = yyDollar[1].s + "][" + yyDollar[3].s
 		}

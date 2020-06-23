@@ -1,9 +1,15 @@
 %{
 package ldc
+
+import (
+  "strconv"
+  "strings"
+)
 %}
 
 %union {
-  s    string
+  s string
+  c int
 }
 
 %token PR_FUNC UNARY_SUB
@@ -49,11 +55,11 @@ statements : statement
            | statements statement { $$.s = $1.s + ";\n" + $2.s }
 
 statement : Identifier '(' parameters ')' { $$.s = "EN := " + $1.s + "(EN, " + $3.s + ")" }
-          | '[' stmt_coma ']'
-          | '[' ',' stmt_coma ']'
+          | '[' stmt_coma ']'             { $$.s = brPrefix($2.c) + $2.s + ";\n" + brSuffix($2.c) }
+          | '[' ',' stmt_coma ']'         { $$.s = brPrefix($3.c) + $3.s + ";\n" + brSuffix($3.c) }
 
-stmt_coma : statements
-          | stmt_coma ',' statements
+stmt_coma : statements                    { $$.s = strings.ReplaceAll($1.s, "EN", "EN1"); $$.c = 1 }
+          | stmt_coma ',' statements      { $$.c = $1.c + ($3.c | 1); $$.s = $1.s + ";\n" + strings.ReplaceAll($3.s, "EN", "EN"+strconv.Itoa($$.c))  }
 
 parameters :
            | parameter

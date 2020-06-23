@@ -32,6 +32,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	s, err = ldc.Transpile(s, n)
+	s, err = ldc.Transpile(s, n, "VAR\n  input_a : BOOL;\nEND_VAR")
 	fmt.Println(s)
 }
