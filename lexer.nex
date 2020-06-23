@@ -1,34 +1,45 @@
 /[ \r\t]/  { /* Skip blanks and tabs. */ }
-/\*/   { return OP_MUL }
-/\//   { return OP_DIV }
-/\+/   { return OP_ADD }
-/-/    { return OP_SUB }
-/\*\*/ { return OP_EXP }
-/,/    { return COMA }
-/;/    { return SEMI }
+/,/    { return ',' }
+/-/    { return '-' }
+/;/    { return ';' }
+/</    { return '<' }
+/<=/   { return LE }
+/<>/   { return NE }
+/=/    { return '=' }
+/>/    { return '>' }
+/>=/   { return GE }
+/AND/  { return AND }
+/MOD/  { return MOD }
+/NOT/  { return NOT }
+/OR/   { return OR }
+/XOR/  { return XOR }
+/\(/   { return '('  }
+/\)/   { return ')' }
+/\*/   { return '*' }
+/\*\*/ { return EXPONENTATION }
+/\+/   { return '+' }
+/\./   { return '.' }
+/\//   { return '/' }
+/\?/   { return '?' }
+/\[/   { return '[' }
+/\]/   { return ']' }
 /\n/   { return NEW_LINE }
-/\?/   { return QUESTION }
-/\(/   { return BEGIN_EXP  }
-/\)/   { return END_EXP }
-/\./   { return DOT }
-/\[/   { return BEGIN_ARR }
-/\]/   { return END_ARR }
-/AND/  { return OP_AND }
-/OR/   { return OP_OR }
-/MOD/  { return OP_MOD }
-/NOT/  { return OP_NOT }
-/XOR/  { return OP_XOR }
-/=/         { lval.s = "=="; return OP_EQ }
-/<>/        { lval.s = "!="; return OP_EQ }
-/>|<|>=|<=/ { lval.s = yylex.Text(); return OP_COMP }
-/[0-9]*/                 { lval.s = yylex.Text(); return INTEGER }
-/[A-Za-z][A-Za-z0-9_:]*/ { lval.s = yylex.Text(); return IDENT }
+/[0-9]*/                 { lval.s = yylex.Text(); return Integer }
+/[A-Za-z][A-Za-z0-9_:]*/ { lval.s = yylex.Text(); return Identifier }
 //
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func (yylex Lexer) Error(e string) {
-	fmt.Printf(":%v:%v: error: %q undeclared\n", yylex.Line()+1, yylex.Column(), yylex.Text())
+	fmt.Printf("line %d column %d: %s, found %q\n", yylex.Line()+1, yylex.Column(), e, yylex.Text())
+}
+
+func (yylex Lexer) Err(e string) {
+	fmt.Printf("line %d column %d: %s\n", yylex.Line()+1, yylex.Column(), e)
+	os.Exit(1)
 }
