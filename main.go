@@ -2,6 +2,8 @@ package ldc
 
 import (
 	"errors"
+	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -45,16 +47,25 @@ func brSuffix(c int) string {
 }
 
 func genVarEN() string {
-	c := 2
-	var s strings.Builder
-	for i := 1; i <= c; i++ {
-		s.WriteString(", EN" + strconv.Itoa(i))
+	sorted := make([]string, 0, len(ens))
+	for e := range ens {
+		sorted = append(sorted, e)
 	}
-	return s.String()
+	sort.Strings(sorted)
+	return strings.Join(sorted, ", ")
+}
+
+var rEN = regexp.MustCompile(`EN\d+`)
+
+func regEN(e string) {
+	for _, en := range rEN.FindAllString(e, -1) {
+		ens[en] = true
+	}
 }
 
 // Transpile .
 func Transpile(s, name, vars string) (string, error) {
+	ens = map[string]bool{"EN": true}
 	r = nil
 	yyErrorVerbose = true
 	lex := NewLexer(strings.NewReader(s))
@@ -63,5 +74,5 @@ func Transpile(s, name, vars string) (string, error) {
 		return lexErr, errors.New("syntax error")
 	}
 
-	return "PROGRAM " + name + "\nVAR\n  EN" + genVarEN() + " : BOOL;\nEND_VAR\n" + vars + prefix + strings.Join(r, ";\n\n") + ";\n" + suffix, nil
+	return "PROGRAM " + name + "\nVAR\n  " + genVarEN() + " : BOOL;\nEND_VAR\n" + vars + prefix + strings.Join(r, ";\n\n") + ";\n" + suffix, nil
 }

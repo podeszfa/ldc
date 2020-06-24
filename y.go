@@ -77,7 +77,8 @@ const yyInitialStackSize = 16
 //line parser.y:96
 
 var (
-	r []string
+	r   []string
+	ens map[string]bool
 )
 
 //line yacctab:1
@@ -611,19 +612,21 @@ yydefault:
 		yyDollar = yyS[yypt-4 : yypt+1]
 //line parser.y:57
 		{
-			yyVAL.s = "EN := " + yyDollar[1].s + "(EN, " + yyDollar[3].s + ")"
+			yyVAL.s = "EN := LD_" + yyDollar[1].s + "(EN, " + yyDollar[3].s + ")"
 		}
 	case 10:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line parser.y:58
 		{
 			yyVAL.s = brPrefix(yyDollar[2].c) + yyDollar[2].s + ";\n" + brSuffix(yyDollar[2].c)
+			regEN(yyDollar[2].s)
 		}
 	case 11:
 		yyDollar = yyS[yypt-4 : yypt+1]
 //line parser.y:59
 		{
 			yyVAL.s = brPrefix(yyDollar[3].c) + yyDollar[3].s + ";\n" + brSuffix(yyDollar[3].c)
+			regEN(yyDollar[2].s)
 		}
 	case 12:
 		yyDollar = yyS[yypt-1 : yypt+1]
