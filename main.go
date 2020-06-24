@@ -17,6 +17,28 @@ OTU -(U)-   Output Unlatch
 OSR -[OSR]- One-Shot Rising
 */
 
+/*
+Static contacts
+--| |--  Normally open contact    XIC
+--|/|--  Normally closed contact  XIO
+
+Transition-sensing contacts
+--|P|--  Positive transition-sensing contact  ONS
+--|N|--  Negative transition-sensing contact  // OSF
+
+Momentary coils
+--( )--  Coil          OTE
+--(/)--  Negated coil
+
+Latched Coils
+--(S)--  SET (latch) coil      OTL
+--(R)--  RESET (unlatch) coil  OTU
+
+Transition-sensing coils
+--(P)--  Positive transition-sensing coil
+--(N)--  Negative transition-sensing coil
+*/
+
 var prefix = `
 
 EN := TRUE;
