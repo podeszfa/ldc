@@ -97,7 +97,7 @@ func translateString(s string) string {
 		}
 		last = r
 	}
-	return `"` + string(t) + `"`
+	return `'` + string(t) + `'`
 }
 
 var prefix = `
