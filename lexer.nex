@@ -26,6 +26,7 @@
 /\n/   { return NEW_LINE }
 /[0-9]*/                 { lval.s = yylex.Text(); return Integer }
 /[A-Za-z][A-Za-z0-9_:]*/ { lval.s = yylex.Text(); return Identifier }
+/"[^"\n]*"/ { lval.s = translateString(yylex.Text()); return String }
 //
 
 package ldc

@@ -14,7 +14,7 @@ import (
 
 %token PR_FUNC UNARY_SUB
 %token AND EXPONENTATION GE LE MOD NE NEW_LINE NOT OR XOR
-%token Identifier Integer
+%token Identifier Integer String
 
 %left ','
 %nonassoc '=' '>' '<' NE LE GE
@@ -67,6 +67,7 @@ parameters :
 
 parameter : Identifier
           | Integer
+          | String
           | '?'                               { $$.s = "null" }
           | Identifier '(' parameters ')' %prec PR_FUNC { $$.s = $1.s + "(" + $3.s + ")" }
           | parameter '.' parameter           { $$.s = $1.s + "." + $3.s}

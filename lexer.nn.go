@@ -911,6 +911,46 @@ var dfas = []dfa{
 			return -1
 		},
 	}, []int{ /* Start-of-input transitions */ -1, -1, -1}, []int{ /* End-of-input transitions */ -1, -1, -1}, nil},
+
+	// "[^"\n]*"
+	{[]bool{false, false, true, false}, []func(rune) int{ // Transitions
+		func(r rune) int {
+			switch r {
+			case 10:
+				return -1
+			case 34:
+				return 1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 10:
+				return -1
+			case 34:
+				return 2
+			}
+			return 3
+		},
+		func(r rune) int {
+			switch r {
+			case 10:
+				return -1
+			case 34:
+				return -1
+			}
+			return -1
+		},
+		func(r rune) int {
+			switch r {
+			case 10:
+				return -1
+			case 34:
+				return 2
+			}
+			return 3
+		},
+	}, []int{ /* Start-of-input transitions */ -1, -1, -1, -1}, []int{ /* End-of-input transitions */ -1, -1, -1, -1}, nil},
 }
 
 func NewLexer(in io.Reader) *Lexer {
@@ -1084,6 +1124,11 @@ OUTER0:
 			{
 				lval.s = yylex.Text()
 				return Identifier
+			}
+		case 28:
+			{
+				lval.s = translateString(yylex.Text())
+				return String
 			}
 		default:
 			break OUTER0
