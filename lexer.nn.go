@@ -912,13 +912,13 @@ var dfas = []dfa{
 		},
 	}, []int{ /* Start-of-input transitions */ -1, -1, -1}, []int{ /* End-of-input transitions */ -1, -1, -1}, nil},
 
-	// "[^"\n]*"
+	// '[^'\n]*'
 	{[]bool{false, false, true, false}, []func(rune) int{ // Transitions
 		func(r rune) int {
 			switch r {
 			case 10:
 				return -1
-			case 34:
+			case 39:
 				return 1
 			}
 			return -1
@@ -927,7 +927,7 @@ var dfas = []dfa{
 			switch r {
 			case 10:
 				return -1
-			case 34:
+			case 39:
 				return 2
 			}
 			return 3
@@ -936,7 +936,7 @@ var dfas = []dfa{
 			switch r {
 			case 10:
 				return -1
-			case 34:
+			case 39:
 				return -1
 			}
 			return -1
@@ -945,7 +945,7 @@ var dfas = []dfa{
 			switch r {
 			case 10:
 				return -1
-			case 34:
+			case 39:
 				return 2
 			}
 			return 3
@@ -1127,7 +1127,7 @@ OUTER0:
 			}
 		case 28:
 			{
-				lval.s = translateString(yylex.Text())
+				lval.s = yylex.Text()
 				return String
 			}
 		default:
