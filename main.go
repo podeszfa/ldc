@@ -87,6 +87,22 @@ func regEN(e string) {
 	}
 }
 
+var trID = map[string]string{
+	"XIC": "XO",
+	"XIO": "XC",
+	"ONS": "XP",
+	"OTE": "CO",
+	"OTL": "CS",
+	"OTU": "CR",
+}
+
+func translateIdent(id string) string {
+	if nid, ok := trID[id]; ok {
+		return nid
+	}
+	return id
+}
+
 // Transpile .
 func Transpile(s, name, vars string) (string, error) {
 	ens = map[string]bool{"EN": true}
