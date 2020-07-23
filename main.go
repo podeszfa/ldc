@@ -19,24 +19,26 @@ OSR -[OSR]- One-Shot Rising
 
 /*
 Static contacts
---| |--  Normally open contact    XIC
---|/|--  Normally closed contact  XIO
+--| |--  Normally open contact    XO, XIC
+--|/|--  Normally closed contact  XC, XIO
 
 Transition-sensing contacts
---|P|--  Positive transition-sensing contact  ONS
---|N|--  Negative transition-sensing contact  // OSF
+--|P|--   Positive transition-sensing contact  XP, ONS
+--|N|--   Negative transition-sensing contact  XN
+--|PN|--  Both transition-sensing contact      XPN, no spec
 
 Momentary coils
---( )--  Coil          OTE
---(/)--  Negated coil
+--( )--  Coil          CO, OTE
+--(/)--  Negated coil  CC
 
 Latched Coils
---(S)--  SET (latch) coil      OTL
---(R)--  RESET (unlatch) coil  OTU
+--(S)--  SET (latch) coil      CS, OTL
+--(R)--  RESET (unlatch) coil  CR, OTU
 
 Transition-sensing coils
---(P)--  Positive transition-sensing coil
---(N)--  Negative transition-sensing coil
+--(P)--   Positive transition-sensing coil  CP
+--(N)--   Negative transition-sensing coil  CN
+--(PN)--  Both transition-sensing coil      CPN, no spec
 */
 
 var prefix = `
