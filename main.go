@@ -109,8 +109,9 @@ func translateIdent(id string, vr string) string {
 	var rid string
 	if nid, ok := trID[id]; ok {
 		rid = nid
+	} else {
+		rid = id
 	}
-	rid = id
 	if _, pnok := addL[rid]; pnok {
 		ens["_last"+vr] = true
 	}
