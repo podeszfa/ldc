@@ -112,6 +112,7 @@ func translateIdent(id string, vr string) string {
 	}
 	rid = id
 	if _, pnok := addL[rid]; pnok {
+		ens["_tmp"] = true
 		ens["_last"+vr] = true
 	}
 	return rid
