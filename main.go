@@ -87,6 +87,15 @@ func regEN(e string) {
 	}
 }
 
+var addL = map[string]bool{
+	"XP":  true,
+	"XN":  true,
+	"XPN": true,
+	"CP":  true,
+	"CN":  true,
+	"CPN": true,
+}
+
 var trID = map[string]string{
 	"XIC": "XO",
 	"XIO": "XC",
@@ -96,11 +105,16 @@ var trID = map[string]string{
 	"OTU": "CR",
 }
 
-func translateIdent(id string) string {
+func translateIdent(id string, vr string) string {
+	var rid string
 	if nid, ok := trID[id]; ok {
-		return nid
+		rid = nid
 	}
-	return id
+	rid = id
+	if _, pnok := addL[rid]; pnok {
+		ens["_last"+vr] = true
+	}
+	return rid
 }
 
 // Transpile .

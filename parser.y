@@ -54,7 +54,7 @@ rung : statements ';' NEW_LINE
 statements : statement
            | statements statement { $$.s = $1.s + ";\n" + $2.s }
 
-statement : Identifier '(' parameters ')' { $$.s = "EN := LD_" + translateIdent($1.s) + "(EN, " + $3.s + ")" }
+statement : Identifier '(' parameters ')' { $$.s = "EN := LD_" + translateIdent($1.s, $3.s) + "(EN, " + $3.s + ")" }
           | '[' stmt_coma ']'             { $$.s = brPrefix($2.c) + $2.s + ";\n" + brSuffix($2.c); regEN($2.s) }
           | '[' ',' stmt_coma ']'         { $$.s = brPrefix($3.c) + $3.s + ";\n" + brSuffix($3.c); regEN($2.s) }
 
