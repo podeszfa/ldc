@@ -616,7 +616,7 @@ yydefault:
 		yyDollar = yyS[yypt-4 : yypt+1]
 //line parser.y:57
 		{
-			yyVAL.s = "EN := LD_" + translateIdent(yyDollar[1].s, yyDollar[3].s) + "(EN, " + yyDollar[3].s + ")"
+			yyVAL.s = "EN := LD_" + translateIdent(yyDollar[1].s, yyDollar[3].s) + "(EN" + ifStr(yyDollar[3].s, ", ", "") + yyDollar[3].s + ")"
 		}
 	case 10:
 		yyDollar = yyS[yypt-3 : yypt+1]

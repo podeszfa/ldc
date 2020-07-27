@@ -118,6 +118,13 @@ func translateIdent(id string, vr string) string {
 	return rid
 }
 
+func ifStr(test, a, b string) string {
+	if test != "" {
+		return a
+	}
+	return b
+}
+
 // Transpile .
 func Transpile(s, name, vars string) (string, error) {
 	ens = map[string]bool{"EN": true}
