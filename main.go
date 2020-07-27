@@ -103,6 +103,12 @@ var trID = map[string]string{
 	"OTE": "CO",
 	"OTL": "CS",
 	"OTU": "CR",
+	"EQU": "EQ",
+	"GEQ": "GE",
+	"GRT": "GT",
+	"LEQ": "LE",
+	"LES": "LT",
+	"NEQ": "NE",
 }
 
 func translateIdent(id string, vr string) string {
