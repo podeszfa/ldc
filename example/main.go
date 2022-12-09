@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	ldc ".."
+	ldc "github.com/podeszfa/ldc"
 )
 
 func main() {

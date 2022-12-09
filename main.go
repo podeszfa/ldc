@@ -137,6 +137,9 @@ func Transpile(s, name, vars string) (string, error) {
 	ens = map[string]bool{"EN": true}
 	r = nil
 	yyErrorVerbose = true
+	if !strings.HasSuffix(s, "\n") {
+		s += "\n"
+	}
 	lex := NewLexer(strings.NewReader(s))
 	ret := yyParse(lex)
 	if ret == 1 {
